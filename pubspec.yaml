@@ -1,0 +1,38 @@
+name: core_x
+description: Core-X Workshop mobile application.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  font_awesome_flutter: ^8.0.1
+  persistent_bottom_nav_bar: ^2.0.5
+
+dev_dependencies:
+  http: ^0.12.2
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/imgs/logo.png
+
+  fonts:
+    - family: WorkSansSemiBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
+
+    - family: WorkSansBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Bold.ttf
+
+    - family: WorkSansMedium
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
