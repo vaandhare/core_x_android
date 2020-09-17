@@ -1,20 +1,21 @@
-import 'file:///D:/Projects/Flutter/core_x/lib/pages/bottomNav/clients_build.dart';
-import 'file:///D:/Projects/Flutter/core_x/lib/pages/bottomNav/pc_parts.dart';
-import 'file:///D:/Projects/Flutter/core_x/lib/pages/bottomNav/pre_build.dart';
+import 'package:core_x/pages/bottomNav/store.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import 'clients_build.dart';
 import 'custom_build.dart';
+import 'pre_build.dart';
 
 class BottomMain extends StatelessWidget {
 
-  PersistentTabController _controller =PersistentTabController(initialIndex: 0);
+  PersistentTabController _controller = PersistentTabController(
+      initialIndex: 0);
 
   List<Widget> _NavScreens() {
     return [
       PreBuild(),
       CustomBuild(),
-      PcParts(),
+      Store(),
       ClientsBuild(),
     ];
   }
@@ -35,12 +36,12 @@ class BottomMain extends StatelessWidget {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.keyboard),
-        title: ("PC Parts"),
+        title: ("Store"),
         activeColor: Colors.deepOrange,
         inactiveColor: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.people),
+        icon: Icon(Icons.photo_library),
         title: ("Client-Build"),
         activeColor: Colors.deepOrange,
         inactiveColor: Colors.grey,

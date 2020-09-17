@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:core_x/api_response/prebuild_response.dart';
+import 'package:core_x/pages/infoPages/prebuild_info.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +20,7 @@ class PreBuild extends StatelessWidget {
     }
   }
 
-  GridView _jobsListView(data) {
+  GridView _jobsListView(data, context) {
     return GridView.count(
       crossAxisCount: 2,
       children: List.generate(data.length, (index) {
@@ -27,9 +28,16 @@ class PreBuild extends StatelessWidget {
           child: Card(
               shadowColor: Colors.black,
               color: Colors.white,
-              child: Center(
-                  child: Column(
+              child: Stack(
                 children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PreBuildInfo()),
+                      );
+                    },
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -74,7 +82,7 @@ class PreBuild extends StatelessWidget {
                         fontSize: 25.0, fontFamily: "WorkSansSemiBold"),
                   ),
                 ],
-              ))),
+              )),
         );
       }),
     );
@@ -100,7 +108,7 @@ class PreBuild extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<PreBuildResponse> data = snapshot.data;
-          return _jobsListView(data);
+          return _jobsListView(data, context);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
