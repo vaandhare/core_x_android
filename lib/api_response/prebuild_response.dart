@@ -1,6 +1,7 @@
 class PreBuildResponse {
   String sId;
   String buildname;
+  String thumnailurl;
   String processor;
   String motherboard;
   String ram;
@@ -18,6 +19,7 @@ class PreBuildResponse {
   PreBuildResponse(
       {this.sId,
       this.buildname,
+      this.thumnailurl,
       this.processor,
       this.motherboard,
       this.ram,
@@ -35,6 +37,7 @@ class PreBuildResponse {
   PreBuildResponse.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     buildname = json['buildname'];
+    thumnailurl = json['thumbnailURL'];
     processor = json['processor'];
     motherboard = json['motherboard'];
     ram = json['ram'];
@@ -54,6 +57,7 @@ class PreBuildResponse {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['buildname'] = this.buildname;
+    data['thumnailURL'] = this.thumnailurl;
     data['processor'] = this.processor;
     data['motherboard'] = this.motherboard;
     data['ram'] = this.ram;

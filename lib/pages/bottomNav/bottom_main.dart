@@ -42,7 +42,7 @@ class BottomMain extends StatelessWidget {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.photo_library),
-        title: ("Client-Build"),
+        title: ("User Showcase"),
         activeColor: Colors.deepOrange,
         inactiveColor: Colors.grey,
       ),
@@ -67,11 +67,11 @@ class BottomMain extends StatelessWidget {
               trailing: Icon(Icons.settings),
             ),
             ListTile(
-              title: Text("PC Parts"),
+              title: Text("Shop"),
               trailing: Icon(Icons.keyboard),
             ),
             ListTile(
-              title: Text("Clients-Builds"),
+              title: Text("User Showcase"),
               trailing: Icon(Icons.people),
             ),
             ListTile(

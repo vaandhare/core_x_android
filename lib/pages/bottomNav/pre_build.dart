@@ -26,80 +26,53 @@ class PreBuild extends StatelessWidget {
       children: List.generate(data.length, (index) {
         return Container(
           child: Card(
-              shadowColor: Colors.black,
-              color: Colors.white,
-              child: Stack(
+            shadowColor: Colors.black,
+            color: Colors.white,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        PreBuildInfo(productId: '${data[index].sId}',)),
+                );
+              },
+              child: Column(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PreBuildInfo()),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
+                  imageURL('${data[index].thumnailurl}'),
                   Text(
                     '${data[index].buildname}',
                     style: TextStyle(
                         fontSize: 15.0, fontFamily: "WorkSansSemiBold"),
                   ),
                   Text(
-                    '${data[index].processor}',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: "WorkSansSemiBold"),
-                  ),
-                  Text(
-                    '${data[index].motherboard}',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: "WorkSansSemiBold"),
-                  ),
-                  Text(
-                    '${data[index].ram}',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: "WorkSansSemiBold"),
-                  ),
-                  Text(
-                    '${data[index].graphiccard}',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: "WorkSansSemiBold"),
-                  ),
-                  Text(
-                    '${data[index].ssd}',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: "WorkSansSemiBold"),
-                  ),
-                  Text(
-                    '${data[index].hdd}',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: "WorkSansSemiBold"),
-                  ),
-                  Text(
                     '₹ ${data[index].price}',
                     style: TextStyle(
-                        fontSize: 25.0, fontFamily: "WorkSansSemiBold"),
+                        fontSize: 25.0,
+                        fontFamily: "WorkSansSemiBold",
+                        color: Colors.deepOrange
+                    ),
                   ),
+
                 ],
-              )),
+              ),
+            ),
+          ),
         );
       }),
     );
   }
 
-  ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
-        title: Text(title,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-            )),
-        subtitle: Text(subtitle),
-        leading: Icon(
-          icon,
-          color: Colors.blue[500],
-        ),
+  Widget imageURL(String url) {
+    try {
+      return new Image.network(
+          url,
+          height: 150.0,
+          width: 150.0,
+          fit: BoxFit.cover
       );
+    } catch (e) {
+      return Icon(Icons.image);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
