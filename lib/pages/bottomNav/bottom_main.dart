@@ -2,9 +2,9 @@ import 'package:core_x/pages/bottomNav/store.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'clients_build.dart';
 import 'custom_build.dart';
 import 'pre_build.dart';
+import 'user_showcase.dart';
 
 class BottomMain extends StatelessWidget {
 
@@ -16,7 +16,7 @@ class BottomMain extends StatelessWidget {
       PreBuild(),
       CustomBuild(),
       Store(),
-      ClientsBuild(),
+      UserShowcase(),
     ];
   }
 
