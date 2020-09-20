@@ -1,12 +1,12 @@
 import 'package:core_x/api_response/register_response.dart';
 import 'package:core_x/style/theme.dart' as Theme;
-import 'file:///D:/Projects/Flutter/core_x/lib/pages/bottomNav/bottom_main.dart';
 import 'package:core_x/utils/bubble_indication_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import 'file:///D:/Projects/Flutter/core_x/lib/pages/bottomNav/bottom_main.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -99,12 +99,12 @@ class _LoginPageState extends State<LoginPage>
                   padding: EdgeInsets.only(top: 120.0),
                   child: new Image(
                       width: 250.0,
-                      height: 100.0,
+                      height: 80.0,
                       fit: BoxFit.fill,
                       image: new AssetImage('assets/imgs/logo.png')),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 60.0),
+                  padding: EdgeInsets.only(top: 80.0),
                   child: _buildMenuBar(context),
                 ),
                 Expanded(

@@ -4,14 +4,19 @@ import 'package:core_x/api_response/prebuild_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class PreBuildInfo extends StatelessWidget {
+class PreBuildInfo extends StatefulWidget {
   final String productId;
 
   const PreBuildInfo({Key key, this.productId}) : super(key: key);
 
+  @override
+  _PreBuildInfoState createState() => _PreBuildInfoState();
+}
+
+class _PreBuildInfoState extends State<PreBuildInfo> {
   Future<PreBuildResponse> _fetchProduct() async {
     final url = 'http://10.0.2.2:3000/prebuild/product';
-    final response = await http.post(url, body: {'id': "$productId"});
+    final response = await http.post(url, body: {'id': "${widget.productId}"});
     if (response.statusCode == 200) {
       return PreBuildResponse.fromJson(json.decode(response.body));
     } else {
@@ -19,24 +24,39 @@ class PreBuildInfo extends StatelessWidget {
     }
   }
 
+  String title = "Pre-Build Product";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: SingleChildScrollView(
-          child: FutureBuilder(
-            future: _fetchProduct(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                PreBuildResponse data = snapshot.data;
-                return productView(data);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              return CircularProgressIndicator();
-            },
-          ),
-        ));
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+          backgroundColor: Colors.deepOrange,
+        ),
+        body: Container(
+            color: Colors.white,
+            child: SingleChildScrollView(
+              child: FutureBuilder(
+                future: _fetchProduct(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    PreBuildResponse data = snapshot.data;
+                    // setState(() {
+                    //   title = data.buildname;
+                    // });
+                    return productView(data);
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  return CircularProgressIndicator();
+                },
+              ),
+            )));
   }
 }
 

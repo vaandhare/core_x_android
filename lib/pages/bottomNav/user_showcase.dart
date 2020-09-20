@@ -30,29 +30,81 @@ class UserShowcase extends StatelessWidget {
               color: Colors.white,
               child: GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (context) =>
-                  //         PreBuildInfo(productId: '${data[index].sId}',)),
-                  // );
-                },
-                child: Column(
-                  children: <Widget>[
-                    imageURL('${data[index].thumbnailURL}'),
-                    Text(
-                      '${data[index].buildname}',
-                      style: TextStyle(
-                          fontSize: 15.0, fontFamily: "WorkSansSemiBold"),
-                    ),
-                    Text(
-                      '₹ ${data[index].price}',
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          fontFamily: "WorkSansSemiBold",
-                          color: Colors.deepOrange),
-                    ),
-                  ],
-                ),
-              ),
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         PreBuildInfo(productId: '${data[index].sId}',)),
+                    // );
+                  },
+                  child: Container(
+                      child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 4,
+                        child: Column(
+                          children: <Widget>[
+                            imageURL('${data[index].thumbnailURL}'),
+                            Text(
+                              '₹ ${data[index].price}',
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  fontFamily: "WorkSansSemiBold",
+                                  color: Colors.deepOrange),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '${data[index].buildname}',
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: "WorkSansSemiBold"),
+                            ),
+                            Text(
+                              'Customer: ${data[index].customername}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                            Text(
+                              '${data[index].processor}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                            Text(
+                              '${data[index].motherboard}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                            Text(
+                              '${data[index].ram}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                            Text(
+                              '${data[index].ssd}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                            Text(
+                              '${data[index].hdd}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                            Text(
+                              '${data[index].graphiccard}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ))),
             ),
           );
         });

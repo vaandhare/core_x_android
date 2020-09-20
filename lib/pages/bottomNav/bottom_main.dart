@@ -1,60 +1,42 @@
 import 'package:core_x/pages/bottomNav/store.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'custom_build.dart';
 import 'pre_build.dart';
 import 'user_showcase.dart';
 
-class BottomMain extends StatelessWidget {
+class BottomMain extends StatefulWidget {
+  @override
+  _BottomMainState createState() => _BottomMainState();
+}
 
-  PersistentTabController _controller = PersistentTabController(
-      initialIndex: 0);
+class _BottomMainState extends State<BottomMain> {
+  PageController _pageController = new PageController();
 
-  List<Widget> _NavScreens() {
-    return [
-      PreBuild(),
-      CustomBuild(),
-      Store(),
-      UserShowcase(),
-    ];
+  List<Widget> _NavScreens = [
+    PreBuild(),
+    CustomBuild(),
+    Store(),
+    UserShowcase()
+  ];
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int selectedIndex) {
+    _pageController.jumpToPage(selectedIndex);
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.laptop),
-        title: ("Pre-Build"),
-        activeColor: Colors.deepOrange,
-        inactiveColor: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.settings),
-        title: ("Custom-Build"),
-        activeColor: Colors.deepOrange,
-        inactiveColor: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.keyboard),
-        title: ("Store"),
-        activeColor: Colors.deepOrange,
-        inactiveColor: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.photo_library),
-        title: ("User Showcase"),
-        activeColor: Colors.deepOrange,
-        inactiveColor: Colors.grey,
-      ),
-    ];
+  void _onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Core-X Workshop'),
-        backgroundColor: Colors.deepOrange
-      ),
+          title: Text('Core-X Workshop'), backgroundColor: Colors.deepOrange),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -85,21 +67,38 @@ class BottomMain extends StatelessWidget {
           ],
         ),
       ),
-      body: PersistentTabView(
-      controller: _controller,
-      screens: _NavScreens(),
-      items: _navBarsItems(),
-      confineInSafeArea: true,
-      backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      hideNavigationBarWhenKeyboardShows: true,
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(20.0),
+      body: PageView(
+        controller: _pageController,
+        children: _NavScreens,
+        physics: NeverScrollableScrollPhysics(),
+        onPageChanged: _onPageChanged,
       ),
-      popAllScreensOnTapOfSelectedTab: true,
-      navBarStyle: NavBarStyle.style2,
-    ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        backgroundColor: Colors.white,
+        unselectedItemColor: Colors.black87,
+        selectedItemColor: Colors.deepOrange,
+        selectedFontSize: 15.0,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.laptop),
+            title: Text('Pre-Build'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('Custom-Build'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.keyboard),
+            title: Text('Store'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            title: Text('User Showcase'),
+          ),
+        ],
+      ),
     );
   }
 }
