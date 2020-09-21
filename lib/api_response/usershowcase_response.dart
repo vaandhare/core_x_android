@@ -17,6 +17,7 @@ class UserShowcaseResponse {
   String price;
   String purchasedAt;
   String createdAt;
+  String orderID;
   int iV;
 
   UserShowcaseResponse(
@@ -28,17 +29,18 @@ class UserShowcaseResponse {
       this.processor,
       this.motherboard,
       this.ram,
-      this.graphiccard,
-      this.ssd,
-      this.hdd,
-      this.psu,
-      this.cpucooler,
-      this.os,
-      this.cpucase,
-      this.price,
-      this.purchasedAt,
-      this.createdAt,
-      this.iV});
+    this.graphiccard,
+    this.ssd,
+    this.hdd,
+    this.psu,
+    this.cpucooler,
+    this.os,
+    this.cpucase,
+    this.price,
+    this.purchasedAt,
+    this.createdAt,
+    this.orderID,
+    this.iV});
 
   UserShowcaseResponse.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -59,6 +61,7 @@ class UserShowcaseResponse {
     price = json['price'];
     purchasedAt = json['purchasedAt'];
     createdAt = json['createdAt'];
+    orderID = json['orderID'];
     iV = json['__v'];
   }
 
@@ -82,6 +85,7 @@ class UserShowcaseResponse {
     data['price'] = this.price;
     data['purchasedAt'] = this.purchasedAt;
     data['createdAt'] = this.createdAt;
+    data['orderID'] = this.orderID;
     data['__v'] = this.iV;
     return data;
   }

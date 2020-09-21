@@ -43,13 +43,6 @@ class UserShowcase extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             imageURL('${data[index].thumbnailURL}'),
-                            Text(
-                              '₹ ${data[index].price}',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontFamily: "WorkSansSemiBold",
-                                  color: Colors.deepOrange),
-                            ),
                           ],
                         ),
                       ),
@@ -59,6 +52,11 @@ class UserShowcase extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
+                            Text(
+                              '#${data[index].orderID}',
+                              style: TextStyle(
+                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                            ),
                             Text(
                               '${data[index].buildname}',
                               style: TextStyle(
@@ -71,34 +69,11 @@ class UserShowcase extends StatelessWidget {
                                   fontSize: 15.0, fontFamily: "WorkSansMedium"),
                             ),
                             Text(
-                              '${data[index].processor}',
+                              '₹ ${data[index].price}',
                               style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '${data[index].motherboard}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '${data[index].ram}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '${data[index].ssd}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '${data[index].hdd}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '${data[index].graphiccard}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
+                                  fontSize: 25.0,
+                                  fontFamily: "WorkSansSemiBold",
+                                  color: Colors.deepOrange),
                             ),
                           ],
                         ),

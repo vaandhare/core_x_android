@@ -1,5 +1,4 @@
 import 'package:core_x/api_response/register_response.dart';
-import 'package:core_x/style/theme.dart' as Theme;
 import 'package:core_x/utils/bubble_indication_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -82,16 +81,7 @@ class _LoginPageState extends State<LoginPage>
                 ? MediaQuery.of(context).size.height
                 : 775.0,
             decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [
-                    Theme.Colors.loginGradientStart,
-                    Theme.Colors.loginGradientEnd
-                  ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 1.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
-            ),
+              color: Color(0xFF039be5)),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -323,12 +313,12 @@ class _LoginPageState extends State<LoginPage>
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: Theme.Colors.loginGradientStart,
+                      color: Color(0xFF039be5),
                       offset: Offset(1.0, 6.0),
                       blurRadius: 20.0,
                     ),
                     BoxShadow(
-                      color: Theme.Colors.loginGradientEnd,
+                      color: Color(0xFF039be5),
                       offset: Offset(1.0, 6.0),
                       blurRadius: 20.0,
                     ),
@@ -337,14 +327,14 @@ class _LoginPageState extends State<LoginPage>
                 ),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
-                    splashColor: Theme.Colors.loginGradientEnd,
+                    splashColor: Color(0xFF039be5),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: Theme.Colors.loginGradientEnd,
+                            color: Color(0xFF039be5),
                             fontSize: 25.0,
                             fontFamily: "WorkSansBold"),
                       ),
@@ -637,12 +627,12 @@ class _LoginPageState extends State<LoginPage>
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: Theme.Colors.loginGradientStart,
+                      color: Color(0xFF039be5),
                       offset: Offset(1.0, 6.0),
                       blurRadius: 20.0,
                     ),
                     BoxShadow(
-                      color: Theme.Colors.loginGradientEnd,
+                      color: Color(0xFF039be5),
                       offset: Offset(1.0, 6.0),
                       blurRadius: 20.0,
                     ),
@@ -660,7 +650,7 @@ class _LoginPageState extends State<LoginPage>
                 ),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
-                    splashColor: Theme.Colors.loginGradientEnd,
+                    splashColor: Color(0xFF039be5),
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -668,7 +658,7 @@ class _LoginPageState extends State<LoginPage>
                       child: Text(
                         "Register",
                         style: TextStyle(
-                            color: Theme.Colors.loginGradientEnd,
+                            color: Color(0xFF039be5),
                             fontSize: 25.0,
                             fontFamily: "WorkSansBold"),
                       ),
