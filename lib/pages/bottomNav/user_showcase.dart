@@ -25,61 +25,70 @@ class UserShowcase extends StatelessWidget {
         itemCount: data.length,
         itemBuilder: (context, index) {
           return Container(
-            child: Card(
-              shadowColor: Colors.black,
-              color: Colors.white,
-              child: GestureDetector(
-                onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         PreBuildInfo(productId: '${data[index].sId}',)),
-                    // );
-                  },
-                  child: Container(
-                      child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 4,
-                        child: Column(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.black, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: GestureDetector(
+                    onTap: () {
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) =>
+                      //         PreBuildInfo(productId: '${data[index].sId}',)),
+                      // );
+                    },
+                    child: Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: Row(
                           children: <Widget>[
-                            imageURL('${data[index].thumbnailURL}'),
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                children: <Widget>[
+                                  imageURL('${data[index].thumbnailURL}'),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    '#${data[index].orderID}',
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontFamily: "GoogleSans"),
+                                  ),
+                                  Text(
+                                    '${data[index].buildname}',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontFamily: "GoogleSans"),
+                                  ),
+                                  Text(
+                                    'Customer: ${data[index].customername}',
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        fontFamily: "GoogleSans"),
+                                  ),
+                                  Text(
+                                    '₹ ${data[index].price}',
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontFamily: "GoogleSans",
+                                        color: Colors.deepOrange[600],
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 6,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              '#${data[index].orderID}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '${data[index].buildname}',
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: "WorkSansSemiBold"),
-                            ),
-                            Text(
-                              'Customer: ${data[index].customername}',
-                              style: TextStyle(
-                                  fontSize: 15.0, fontFamily: "WorkSansMedium"),
-                            ),
-                            Text(
-                              '₹ ${data[index].price}',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontFamily: "WorkSansSemiBold",
-                                  color: Colors.deepOrange),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ))),
+                        ))),
+              ),
             ),
           );
         });
@@ -87,8 +96,15 @@ class UserShowcase extends StatelessWidget {
 
   Widget imageURL(String url) {
     try {
-      return new Image.network(url,
-          height: 150.0, width: 150.0, fit: BoxFit.cover);
+      return Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: new Image.network(
+          url,
+          height: 80.0,
+          width: 80.0,
+          fit: BoxFit.cover,
+        ),
+      );
     } catch (e) {
       return Icon(Icons.image);
     }

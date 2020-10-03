@@ -27,29 +27,33 @@ class PreBuild extends StatelessWidget {
         return Container(
           child: Card(
             shadowColor: Colors.black,
-            color: Colors.white,
+            color: Colors.white70,
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        PreBuildInfo(productId: '${data[index].sId}',)),
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => PreBuildInfo(
+                            productId: '${data[index].sId}',
+                          )),
                 );
               },
               child: Column(
                 children: <Widget>[
-                  imageURL('${data[index].thumnailurl}'),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: imageURL('${data[index].thumnailurl}'),
+                  ),
                   Text(
                     '${data[index].buildname}',
                     style: TextStyle(
-                        fontSize: 15.0, fontFamily: "WorkSansSemiBold"),
+                        fontSize: 12.0, fontFamily: "WorkSansSemiBold"),
                   ),
                   Text(
                     '₹ ${data[index].price}',
                     style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 20.0,
                         fontFamily: "WorkSansSemiBold",
-                        color: Colors.deepOrange
-                    ),
+                        color: Colors.deepOrange),
                   ),
 
                 ],
@@ -65,8 +69,8 @@ class PreBuild extends StatelessWidget {
     try {
       return new Image.network(
           url,
-          height: 150.0,
-          width: 150.0,
+          height: 125.0,
+          width: 125.0,
           fit: BoxFit.cover
       );
     } catch (e) {

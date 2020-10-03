@@ -6,23 +6,30 @@ import 'package:flutter/material.dart';
 class CustomBuild extends StatelessWidget {
   _gridEmptyItem(String text) {
     return new Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(text,
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Text(
+            text,
             style: TextStyle(
-              color: Colors.black87,
-              fontSize: 15.0,
-              fontFamily: "WorkSansSemiBold",
-            )),
+                color: Colors.black87,
+                fontSize: 14.0,
+                fontFamily: "GoogleSans",
+                fontWeight: FontWeight.bold),
+            maxLines: 1,
+          ),
+        ),
         Card(
           child: Padding(
-            padding: const EdgeInsets.all(25.0),
+            padding: const EdgeInsets.fromLTRB(70.0, 8.5, 70.0, 8.5),
             child: Icon(
               Icons.add,
-              size: 50.0,
-              color: Colors.white54,
+              size: 40.0,
+              color: Colors.grey,
             ),
           ),
-          color: Colors.grey,
+          color: Colors.white60,
         ),
       ],
     );
@@ -30,17 +37,25 @@ class CustomBuild extends StatelessWidget {
 
   _gridItemContainer(String text) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(text,
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: Text(
+            text,
             style: TextStyle(
-              color: Colors.black87,
-              fontSize: 15.0,
-              fontFamily: "WorkSansSemiBold",
-            )),
+                color: Colors.black87,
+                fontSize: 14.0,
+                fontFamily: "GoogleSans",
+                fontWeight: FontWeight.bold
+            ),
+            maxLines: 1,
+          ),
+        ),
         Card(
           child: Container(
-            width: 100,
-            height: 100,
+            width: 200,
+            height: 60,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               image: DecorationImage(
@@ -61,7 +76,7 @@ class CustomBuild extends StatelessWidget {
                     'ABCD AB',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12.0,
+                      fontSize: 10.0,
                       fontFamily: "WorkSansSemiBold",
                     ),
                   ),
@@ -69,7 +84,7 @@ class CustomBuild extends StatelessWidget {
                     '₹2000',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 15.0,
+                      fontSize: 10.0,
                       fontFamily: "WorkSansSemiBold",
                     ),
                   )
@@ -84,73 +99,69 @@ class CustomBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+        padding: const EdgeInsets.only(top: 15.0),
         child: Stack(children: <Widget>[
-      GridView.count(
-        padding: EdgeInsets.all(5.0),
-        crossAxisCount: 3,
-        childAspectRatio: MediaQuery.of(context).size.height / 800,
-        children: [
-          _gridItemContainer('Processor'),
-          _gridEmptyItem('Graphic Card'),
-          _gridEmptyItem('Motherboard'),
-          _gridEmptyItem('Ram'),
-          _gridEmptyItem('Storage-SSD'),
-          _gridItemContainer('Storage-HDD'),
-          _gridEmptyItem('SMPS'),
-          _gridEmptyItem('Cabinet'),
-          _gridEmptyItem('Cards'),
-          _gridItemContainer('Fans'),
-          _gridEmptyItem('Others'),
-        ],
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Container(
-            height: 50.0,
-            width: double.infinity,
-            margin: EdgeInsets.fromLTRB(50.0, 0.0, 10.0, 20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Card(
-                    elevation: 1.0,
-                    color: Colors.deepOrange,
-                    shadowColor: Colors.black87,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Total:',
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 18.0,
-                                fontFamily: "WorkSansBold"),
-                          ),
-                          Text(
+          GridView.count(
+            padding: EdgeInsets.all(5.0),
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery
+                .of(context)
+                .size
+                .height / 350,
+            children: [
+              _gridItemContainer('Processor'),
+              _gridEmptyItem('Graphic Card'),
+              _gridEmptyItem('Motherboard'),
+              _gridEmptyItem('Ram'),
+              _gridEmptyItem('Storage-SSD'),
+              _gridItemContainer('Storage-HDD'),
+              _gridEmptyItem('SMPS'),
+              _gridEmptyItem('Cabinet'),
+              _gridEmptyItem('Cards'),
+              _gridItemContainer('Fans'),
+              _gridEmptyItem('Others'),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                height: 50.0,
+                width: double.infinity,
+                margin: EdgeInsets.fromLTRB(50.0, 0.0, 10.0, 20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Card(
+                        elevation: 1.0,
+                        color: Colors.deepOrange,
+                        shadowColor: Colors.black87,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
                             ' ₹20,000.00',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.0,
-                                fontFamily: "WorkSansBold"),
-                          )
-                        ],
-                      ),
-                    )),
-                FloatingActionButton(
-                  onPressed: () {},
-                  child: Icon(Icons.add_shopping_cart),
-                  backgroundColor: Colors.deepOrange,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "GoogleSans"),
+                          ),
+                        )
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {},
+                      child: Icon(Icons.add_shopping_cart),
+                      backgroundColor: Colors.deepOrange,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ],
-      )
-    ]));
+              ),
+            ],
+          )
+        ])
+    );
   }
 }

@@ -13,7 +13,7 @@ class BottomMain extends StatefulWidget {
 class _BottomMainState extends State<BottomMain> {
   PageController _pageController = new PageController();
 
-  List<Widget> _NavScreens = [
+  List<Widget> _navScreens = [
     PreBuild(),
     CustomBuild(),
     Store(),
@@ -36,46 +36,85 @@ class _BottomMainState extends State<BottomMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Core-X Workshop'), backgroundColor: Colors.deepOrange),
+          title: Text(
+            'Core-X Workshop',
+            style: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontFamily: 'GoogleSans',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.search,
+              ),
+              onPressed: () {},
+            )
+          ],
+          iconTheme: new IconThemeData(color: Colors.deepOrange),
+          elevation: 0.0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
+            DrawerHeader(
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Username",
+                          style: TextStyle(
+                              color: Colors.deepOrange,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500)),
+                    ])),
+            Divider(),
             ListTile(
               title: Text("Pre-Builds"),
-              trailing: Icon(Icons.laptop),
+              leading: Icon(Icons.laptop),
             ),
+            Divider(),
             ListTile(
               title: Text("Custom-Builds"),
-              trailing: Icon(Icons.settings),
+              leading: Icon(Icons.settings),
             ),
+            Divider(),
             ListTile(
               title: Text("Shop"),
-              trailing: Icon(Icons.keyboard),
+              leading: Icon(Icons.keyboard),
             ),
+            Divider(),
             ListTile(
               title: Text("User Showcase"),
-              trailing: Icon(Icons.people),
+              leading: Icon(Icons.people),
             ),
+            Divider(),
             ListTile(
               title: Text("About Us"),
-              trailing: Icon(Icons.info_outline),
+              leading: Icon(Icons.info_outline),
             ),
+            Divider(),
             ListTile(
               title: Text("Contact Us"),
-              trailing: Icon(Icons.contact_phone),
+              leading: Icon(Icons.contact_phone),
             ),
           ],
         ),
       ),
       body: PageView(
         controller: _pageController,
-        children: _NavScreens,
+        children: _navScreens,
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: _onPageChanged,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         backgroundColor: Colors.white,
+        elevation: 0.0,
         unselectedItemColor: Colors.black87,
         selectedItemColor: Colors.deepOrange,
         selectedFontSize: 15.0,
@@ -83,19 +122,19 @@ class _BottomMainState extends State<BottomMain> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.laptop),
-            title: Text('Pre-Build'),
+            label: 'Pre-Build',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text('Custom-Build'),
+            label: 'Custom-Build',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.keyboard),
-            title: Text('Store'),
+            label: 'Store',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            title: Text('User Showcase'),
+            label: 'User Showcase',
           ),
         ],
       ),

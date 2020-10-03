@@ -13,6 +13,7 @@ class PreBuildResponse {
   String os;
   String cpucase;
   String price;
+  List<String> buildImagesURL;
   String createdAt;
   int iV;
 
@@ -31,6 +32,7 @@ class PreBuildResponse {
       this.os,
       this.cpucase,
       this.price,
+      this.buildImagesURL,
       this.createdAt,
       this.iV});
 
@@ -49,6 +51,7 @@ class PreBuildResponse {
     os = json['os'];
     cpucase = json['cpucase'];
     price = json['price'];
+    buildImagesURL = json['buildImagesURL'].cast<String>();
     createdAt = json['createdAt'];
     iV = json['__v'];
   }
@@ -69,6 +72,7 @@ class PreBuildResponse {
     data['os'] = this.os;
     data['cpucase'] = this.cpucase;
     data['price'] = this.price;
+    data['buildImagesURL'] = this.buildImagesURL;
     data['createdAt'] = this.createdAt;
     data['__v'] = this.iV;
     return data;

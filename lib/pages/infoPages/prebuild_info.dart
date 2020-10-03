@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:core_x/api_response/prebuild_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -35,27 +36,25 @@ class _PreBuildInfoState extends State<PreBuildInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(
+            title,
+            style: TextStyle(fontFamily: "GoogleSans"),
+          ),
           backgroundColor: Colors.deepOrange,
         ),
         body: Container(
             color: Colors.white,
-            child: Container(
-              child: FutureBuilder(
-                future: _fetchProduct(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    PreBuildResponse data = snapshot.data;
-                    // setState(() {
-                    //   title = data.buildname;
-                    // });
-                    return productView(data);
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  return CircularProgressIndicator();
-                },
-              ),
+            child: FutureBuilder(
+              future: _fetchProduct(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  PreBuildResponse data = snapshot.data;
+                  return productView(data);
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              },
             )));
   }
 }
@@ -69,264 +68,133 @@ Widget productView(PreBuildResponse data) {
             child: SingleChildScrollView(
               padding: EdgeInsets.all(10.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      'Specifications',
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.deepOrange,
-                          fontFamily: "WorkSansSemiBold"),
+                  CarouselSlider.builder(
+                    options: CarouselOptions(
+                      height: 200,
+                      viewportFraction: 1,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayCurve: Curves.decelerate,
+                      enlargeCenterPage: true,
+                    ),
+                    itemCount: data.buildImagesURL.length,
+                    itemBuilder: (BuildContext context, int intIndex) =>
+                        Container(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
+                            margin: EdgeInsets.symmetric(horizontal: 3.0),
+                            child: Image.network(
+                              '${data.buildImagesURL[intIndex]}',
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                            )
+                        ),
+                  ),
+                  Divider(color: Colors.deepOrangeAccent, thickness: 1),
+                  Text(
+                    'Specifications',
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange,
+                        fontFamily: "GoogleSans"),
+                  ),
+                  Divider(color: Colors.deepOrangeAccent, thickness: 1),
+                  _specificationRow('Processor', '${data.processor}'),
+                  _specificationRow('Motherboard', '${data.motherboard}'),
+                  _specificationRow('Ram', '${data.ram}'),
+                  _specificationRow('GPU', '${data.graphiccard}'),
+                  _specificationRow('SSD', '${data.ssd}'),
+                  _specificationRow('HDD', '${data.hdd}'),
+                  _specificationRow('PSU', '${data.psu}'),
+                  _specificationRow('CPU Cooler', '${data.cpucooler}'),
+                  _specificationRow('OS', '${data.os}'),
+                  _specificationRow('CPU Case', '${data.cpucase}'),
+                  Divider(color: Colors.deepOrangeAccent, thickness: 1),
+                  Text(
+                    'Benchmarks',
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange,
+                        fontFamily: "GoogleSans"),
+                  ),
+                  Divider(color: Colors.deepOrangeAccent, thickness: 1),
+                  SizedBox(
+                    height: 150,
+                    child: ListView.builder(
+                      itemCount: data.buildImagesURL.length,
+                      itemBuilder: (context, index) {
+                        return new Card(
+                            child: new Container(
+                                width: 180.0,
+                                color: Colors.green,
+                                child: Stack(
+                                    alignment: Alignment.bottomLeft,
+                                    children: <Widget>[
+                                      Image.network(
+                                        '${data.buildImagesURL[index]}',
+                                        fit: BoxFit.cover,
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        alignment: Alignment.center,
+                                      ),
+                                      Container(
+                                        color: Colors.white.withOpacity(0.8),
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .stretch,
+                                          children: <Widget>[
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .end,
+                                              children: [
+                                                Text(
+                                                    "Game Name",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontFamily: "GoogleSans",
+                                                        color: Colors.black
+                                                    )
+                                                ),
+                                                Card(
+                                                  color: Colors.deepOrange,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .all(3.0),
+                                                    child: Text(
+                                                        "200",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontFamily: "GoogleSans",
+                                                            color: Colors.white
+                                                        )
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ]
+                                )
+                            )
+                        );
+                      },
+                      scrollDirection: Axis.horizontal,
                     ),
                   ),
-                  Table(
-                    border: TableBorder.all(color: Colors.grey),
-                    children: [
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'Processor',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.processor}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'Motherboard',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.motherboard}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'Ram',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.ram}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'GPU',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.graphiccard}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'SSD',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.ssd}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'HDD',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.hdd}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'PSU',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.psu}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'CPU Cooler',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.cpucooler}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'OS',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.os}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text(
-                                'CPU Case',
-                                style: TextStyle(
-                                    color: Colors.deepOrange,
-                                    fontSize: 16.0,
-                                    fontFamily: "WorkSansSemiBold"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Stack(
-                            children: <Widget>[
-                              Text('${data.cpucase}'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                    ],
-                  ),
+                  Divider(color: Colors.deepOrangeAccent, thickness: 1),
                 ],
               ),
             ),
@@ -372,5 +240,40 @@ Widget productView(PreBuildResponse data) {
           )
         ],
       )
+  );
+}
+
+
+Widget _specificationRow(String title, String description) {
+  return new Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              '• $title :',
+              style: TextStyle(
+                  color: Colors.deepOrange,
+                  fontSize: 15.0,
+                  fontFamily: "GoogleSans"),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text(
+              '$description',
+              maxLines: 3,
+              overflow: TextOverflow.clip,
+              style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: "GoogleSans"),
+            ),
+          ),
+        ),
+      ]
   );
 }

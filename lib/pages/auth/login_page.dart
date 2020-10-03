@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import 'file:///D:/Projects/Flutter/core_x/lib/pages/bottomNav/bottom_main.dart';
+import '../bottomNav/bottom_main.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -33,7 +33,8 @@ class _LoginPageState extends State<LoginPage>
   TextEditingController loginPasswordController = new TextEditingController();
 
   bool _obscureTextLogin = true;
-  bool _obscureTextSignup = true;
+
+  // bool _obscureTextSignup = true;
   bool _obscureTextSignupConfirm = true;
 
   TextEditingController signupEmailController = new TextEditingController();
@@ -76,12 +77,21 @@ class _LoginPageState extends State<LoginPage>
         },
         child: SingleChildScrollView(
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height >= 775.0
-                ? MediaQuery.of(context).size.height
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height >= 775.0
+                ? MediaQuery
+                .of(context)
+                .size
+                .height
                 : 775.0,
             decoration: new BoxDecoration(
-              color: Color(0xFF039be5)),
+                color: Colors.lightBlueAccent),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -94,7 +104,7 @@ class _LoginPageState extends State<LoginPage>
                       image: new AssetImage('assets/imgs/logo.png')),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 80.0),
+                  padding: EdgeInsets.only(top: 40.0),
                   child: _buildMenuBar(context),
                 ),
                 Expanded(
@@ -227,7 +237,6 @@ class _LoginPageState extends State<LoginPage>
         children: <Widget>[
           Stack(
             alignment: Alignment.topCenter,
-            overflow: Overflow.visible,
             children: <Widget>[
               Card(
                 elevation: 2.0,
@@ -334,7 +343,7 @@ class _LoginPageState extends State<LoginPage>
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: Color(0xFF039be5),
+                            color: Colors.blueAccent,
                             fontSize: 25.0,
                             fontFamily: "WorkSansBold"),
                       ),
@@ -458,7 +467,6 @@ class _LoginPageState extends State<LoginPage>
         children: <Widget>[
           Stack(
             alignment: Alignment.topCenter,
-            overflow: Overflow.visible,
             children: <Widget>[
               Card(
                 elevation: 2.0,
@@ -696,11 +704,11 @@ class _LoginPageState extends State<LoginPage>
     });
   }
 
-  void _toggleSignup() {
-    setState(() {
-      _obscureTextSignup = !_obscureTextSignup;
-    });
-  }
+  // void _toggleSignup() {
+  //   setState(() {
+  //     _obscureTextSignup = !_obscureTextSignup;
+  //   });
+  // }
 
   void _toggleSignupConfirm() {
     setState(() {

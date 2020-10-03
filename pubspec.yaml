@@ -10,10 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^8.0.1
-
+  http: ^0.12.2
+  flutter_svg: ^0.19.0
+  carousel_slider: ^2.3.1
 
 dev_dependencies:
-  http: ^0.12.2
   flutter_test:
     sdk: flutter
 
@@ -23,8 +24,23 @@ flutter:
 
   assets:
     - assets/imgs/logo.png
+    - assets/icons/cabinet.svg
+    - assets/icons/cards.svg
+    - assets/icons/fan.svg
+    - assets/icons/graphic_card.svg
+    - assets/icons/hdd.svg
+    - assets/icons/motherboard.svg
+    - assets/icons/others.svg
+    - assets/icons/processor.svg
+    - assets/icons/ram.svg
+    - assets/icons/smps.svg
+    - assets/icons/ssd.svg
 
   fonts:
+    - family: GoogleSans
+      fonts:
+        - asset: assets/fonts/GoogleSansRegular.ttf
+
     - family: WorkSansSemiBold
       fonts:
         - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
