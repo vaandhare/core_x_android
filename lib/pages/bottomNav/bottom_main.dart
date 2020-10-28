@@ -66,38 +66,58 @@ class _BottomMainState extends State<BottomMain> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Username",
-                          style: TextStyle(
-                              color: Colors.deepOrange,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w500)),
+                      Image.asset(
+                        'assets/imgs/logo.png',
+                      ),
                     ])),
-            Divider(),
             ListTile(
-              title: Text("Pre-Builds"),
-              leading: Icon(Icons.laptop),
+              title: Text("Explore"),
+              leading: Icon(Icons.account_circle),
             ),
-            Divider(),
-            ListTile(
-              title: Text("Custom-Builds"),
-              leading: Icon(Icons.settings),
+            Divider(
+              color: Colors.deepOrange,
+              height: 2,
             ),
-            Divider(),
             ListTile(
-              title: Text("Shop"),
+              title: Text("Offers"),
               leading: Icon(Icons.keyboard),
             ),
-            Divider(),
+            Divider(
+              color: Colors.deepOrange,
+              height: 2,
+            ),
             ListTile(
-              title: Text("User Showcase"),
+              title: Text("My Profile"),
+              leading: Icon(Icons.account_circle),
+            ),
+            Divider(
+              color: Colors.deepOrange,
+              height: 2,
+            ),
+            ListTile(
+              title: Text("My Cart"),
+              leading: Icon(Icons.settings),
+            ),
+            Divider(
+              color: Colors.deepOrange,
+              height: 2,
+            ),
+            ListTile(
+              title: Text("My Orders"),
               leading: Icon(Icons.people),
             ),
-            Divider(),
+            Divider(
+              color: Colors.deepOrange,
+              height: 2,
+            ),
             ListTile(
               title: Text("About Us"),
               leading: Icon(Icons.info_outline),
             ),
-            Divider(),
+            Divider(
+              color: Colors.deepOrange,
+              height: 2,
+            ),
             ListTile(
               title: Text("Contact Us"),
               leading: Icon(Icons.contact_phone),

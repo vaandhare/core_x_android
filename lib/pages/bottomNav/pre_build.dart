@@ -51,7 +51,7 @@ class PreBuild extends StatelessWidget {
                   Text(
                     '₹ ${data[index].price}',
                     style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                         fontFamily: "WorkSansSemiBold",
                         color: Colors.deepOrange),
                   ),
@@ -89,7 +89,12 @@ class PreBuild extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator();
+        return Container(
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.deepOrange,
+          ),
+        );
       },
     );
   }

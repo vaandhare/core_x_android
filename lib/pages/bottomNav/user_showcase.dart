@@ -121,7 +121,12 @@ class UserShowcase extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator();
+        return Container(
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.deepOrange,
+          ),
+        );
       },
     );
   }
