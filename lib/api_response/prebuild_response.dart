@@ -12,7 +12,7 @@ class PreBuildResponse {
   String cpucooler;
   String os;
   String cpucase;
-  String price;
+  int price;
   List<String> buildImagesURL;
   String createdAt;
   int iV;

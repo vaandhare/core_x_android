@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class UserShowcase extends StatelessWidget {
   Future<List<UserShowcaseResponse>> _fetchJobs() async {
-    final url = 'http://10.0.2.2:3000/usershowcase/getAll';
+    final url = 'https://corexapi.herokuapp.com/usershowcase/getAll';
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage>
   Color right = Colors.white;
 
   Future<RegisterResponse> registerUser(String name, String username, String email, String mobile, String password) async {
-    final String url = "http://10.0.2.2:3000/users/register";
+    final String url = "https://corexapi.herokuapp.com/users/register";
     final response = await http.post(url, body: {
       "name": name,
       "username": username,
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage>
       "password": password
     });
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final String registerResponse = response.body;
       return registerResponseFromJson(registerResponse);
     }else{

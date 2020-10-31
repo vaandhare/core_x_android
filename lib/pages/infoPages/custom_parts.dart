@@ -19,7 +19,7 @@ class CustomParts extends StatefulWidget {
 
 class _CustomPartsState extends State<CustomParts> {
   Future<List<CustomPartsResponse>> _fetchParts() async {
-    final url = 'http://10.0.2.2:3000/custom/${widget.type}';
+    final url = 'https://corexapi.herokuapp.com/custom/${widget.type}';
     final response = await http.get(url);
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -31,34 +31,39 @@ class _CustomPartsState extends State<CustomParts> {
     }
   }
 
+  // ignore: missing_return
   Future<CustomPartsResponse> _fetchProduct(productId) async {
-    final url = 'http://10.0.2.2:3000/custom/getProduct';
+    final url = 'https://corexapi.herokuapp.com/custom/getProduct';
     final response = await http.post(url, body: {'id': productId});
 
     if (response.statusCode == 200) {
-      return CustomPartsResponse.fromJson(json.decode(response.body));
+      CustomPartsResponse data =
+          CustomPartsResponse.fromJson(json.decode(response.body));
+      _findUser(productId, data.price);
     } else {
       throw Exception('Failed to load data from API');
     }
   }
 
-  Future<UserResponse> _findUser() async {
-    final url = 'http://10.0.2.2:3000/users/findUser';
+  // ignore: missing_return
+  Future<UserResponse> _findUser(productId, price) async {
+    final url = 'https://corexapi.herokuapp.com/users/findUser';
     final response = await http.post(url, body: {'id': "${widget.userId}"});
 
     if (response.statusCode == 200) {
-      return UserResponse.fromJson(json.decode(response.body));
+      UserResponse data = UserResponse.fromJson(json.decode(response.body));
+      _updatePrice(productId, data.customBuild.price + price);
     } else {
       throw Exception('Failed to load data from API');
     }
   }
 
-  Future<UserResponse> _updatePrice(productId) async {
-    final url = 'http://10.0.2.2:3000/users/update${widget.type}';
+  Future<UserResponse> _updatePrice(productId, int price) async {
+    final url = 'https://corexapi.herokuapp.com/users/update${widget.type}';
     final response = await http.post(url, body: {
       'id': "${widget.userId}",
       '${widget.type}': productId,
-      'price': '000'
+      'price': '$price'
     });
 
     if (response.statusCode == 200) {
@@ -207,7 +212,7 @@ class _CustomPartsState extends State<CustomParts> {
                   ),
                   RaisedButton(
                     onPressed: () {
-                      _updatePrice(data.sId);
+                      _fetchProduct(data.sId);
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },

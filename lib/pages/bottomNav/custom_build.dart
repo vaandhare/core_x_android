@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:core_x/api_response/custom_parts_response.dart';
 import 'package:core_x/api_response/user_response.dart';
 import 'package:core_x/pages/infoPages/custom_parts.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,10 +15,35 @@ class CustomBuild extends StatefulWidget {
 
 class _CustomBuildState extends State<CustomBuild> {
   String userId = "5f97c9f544f3c220cca33dd1";
+  String price;
+  String title;
 
   Future<UserResponse> _fetchUserData() async {
-    final url = 'http://10.0.2.2:3000/users/findUser';
+    final url = 'https://corexapi.herokuapp.com/users/findUser';
     final response = await http.post(url, body: {'id': "$userId"});
+
+    if (response.statusCode == 200) {
+      return UserResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load data from API');
+    }
+  }
+
+  Future<CustomPartsResponse> _fetchProduct(productId) async {
+    final url = 'https://corexapi.herokuapp.com/custom/getProduct';
+    final response = await http.post(url, body: {'id': productId});
+
+    if (response.statusCode == 200) {
+      return CustomPartsResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load data from API');
+    }
+  }
+
+  Future<UserResponse> _updatePrice(type) async {
+    final url = 'https://corexapi.herokuapp.com/users/update$type';
+    final response =
+        await http.post(url, body: {'id': "$userId", '$type': "", 'price': 0});
 
     if (response.statusCode == 200) {
       return UserResponse.fromJson(json.decode(response.body));
@@ -86,47 +112,86 @@ class _CustomBuildState extends State<CustomBuild> {
             maxLines: 1,
           ),
         ),
-        Card(
-          child: Container(
-            width: 200,
-            height: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://corex.s3.ap-south-1.amazonaws.com/pc1.png'),
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.topCenter,
-              ),
-            ),
-            child: Container(
-              height: 25,
-              width: 105,
-              color: Color.fromRGBO(0, 0, 0, 0.6),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    '$model',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontFamily: "WorkSansSemiBold",
-                    ),
-                  ),
-                  Text(
-                    '₹0000',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontFamily: "WorkSansSemiBold",
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+        FutureBuilder(
+            future: _fetchProduct(model),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                CustomPartsResponse data = snapshot.data;
+                return Card(
+                    child: Container(
+                        width: 200,
+                        height: 60,
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Image.network(
+                                  '${data.thumbnailURL}',
+                                  fit: BoxFit.fitWidth,
+                                  alignment: Alignment.center,
+                                ),
+                                flex: 3,
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text(
+                                      '${data.title}',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 11.0,
+                                        fontFamily: "WorkSansSemiBold",
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                            "₹${data.price}",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontFamily: "GoogleSans",
+                                                color: Colors.black
+                                            )
+                                        ),
+                                        SizedBox(
+                                          height: 22.0,
+                                          width: 22.0,
+                                          child: IconButton(
+                                            icon: Icon(Icons.delete),
+                                            iconSize: 20.0,
+                                            color: Colors.deepOrange,
+                                            onPressed: () {
+                                              _updatePrice(model);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
+                            ]
+                        )
+                    )
+                );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return Container(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.deepOrange,
+                ),
+              );
+            }
+        )
       ],
     );
   }
@@ -220,7 +285,7 @@ class _CustomBuildState extends State<CustomBuild> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            ' ₹20,000.00',
+                            ' ₹${data.customBuild.price}',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15.0,

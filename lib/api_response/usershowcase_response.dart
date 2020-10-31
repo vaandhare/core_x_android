@@ -14,7 +14,7 @@ class UserShowcaseResponse {
   String cpucooler;
   String os;
   String cpucase;
-  String price;
+  int price;
   String purchasedAt;
   String createdAt;
   String orderID;

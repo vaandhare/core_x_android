@@ -63,7 +63,7 @@ class CustomBuild {
   String cards;
   String fans;
   String others;
-  String price;
+  int price;
 
   CustomBuild(
       {this.processor,

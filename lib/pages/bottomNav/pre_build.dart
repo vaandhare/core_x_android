@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class PreBuild extends StatelessWidget {
   Future<List<PreBuildResponse>> _fetchJobs() async {
-    final url = 'http://10.0.2.2:3000/prebuild/getAll';
+    final url = 'https://corexapi.herokuapp.com/prebuild/getAll';
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

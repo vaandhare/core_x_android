@@ -5,7 +5,7 @@ class CustomPartsResponse {
   String modelNumber;
   String type;
   String thumbnailURL;
-  String price;
+  int price;
   String createdAt;
   int iV;
 

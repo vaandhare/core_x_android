@@ -16,7 +16,7 @@ class PreBuildInfo extends StatefulWidget {
 
 class _PreBuildInfoState extends State<PreBuildInfo> {
   Future<PreBuildResponse> _fetchProduct() async {
-    final url = 'http://10.0.2.2:3000/prebuild/product';
+    final url = 'https://corexapi.herokuapp.com/prebuild/product';
     final response = await http.post(url, body: {'id': "${widget.productId}"});
     if (response.statusCode == 200) {
       return PreBuildResponse.fromJson(json.decode(response.body));
@@ -135,7 +135,6 @@ Widget productView(PreBuildResponse data) {
                         return new Card(
                             child: new Container(
                                 width: 180.0,
-                                color: Colors.green,
                                 child: Stack(
                                     alignment: Alignment.bottomLeft,
                                     children: <Widget>[
